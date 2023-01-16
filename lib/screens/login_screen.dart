@@ -27,6 +27,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   bool _isAuthenticatingLogin = false;
   bool isAuthenticatingSignup = false;
   String deviceIdentifier = '';
+  String weekend = 'weeknd';
+  String dog = 'dog with bat wings';
+  String beach = 'boy in beach';
+  String messi = 'messi';
+  String chess = 'chess';
   bool isDog = false;
   bool isBeach = false;
   bool isMessi = false;
@@ -69,7 +74,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   
 
   void signin() {
-    ref.read(authControllerProvider).signIn(context, deviceIdentifier,_password.join("").toString(), ref);
+    ref.read(authControllerProvider).signIn(context, deviceIdentifier, isBeach? beach+_password.join("").toString():isMessi?messi+_password.join("").toString():isWeeknd?weekend+_password.join("").toString():isDog?dog+_password.join("").toString():chess+_password.join("").toString(), ref);
   }
 
 

@@ -20,6 +20,7 @@ class AuthRepository {
     required String name,
     
     required String deviceId,
+    required String deviceDetails,
     required String password,
     
     })async{
@@ -30,6 +31,7 @@ class AuthRepository {
           name: name,
           
           deviceId: deviceId,
+          deviceDetails: deviceDetails,
           password: password,
           token: '',
         );
@@ -59,6 +61,7 @@ class AuthRepository {
         Uri.parse('${Constants.uri}/api/signin'),
         body: jsonEncode({
           'deviceId':deviceId,
+       
           'password':password,
          
         }),

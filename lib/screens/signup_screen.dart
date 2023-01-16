@@ -27,6 +27,13 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
   bool _isAuthenticatingLogin = false;
   bool isAuthenticatingSignup = false;
   String deviceIdentifier = '';
+  String deviceDetails = '';
+  String weekend = 'weeknd';
+  String dog = 'dog with bat wings';
+  String beach = 'boy in beach';
+  String messi = 'messi';
+  String chess = 'chess';
+
   bool isDog = false;
   bool isBeach = false;
   bool isMessi = false;
@@ -73,13 +80,14 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
           name,
           
           deviceIdentifier,
-          _password.join("").toString(),
+          deviceDetails,
+          isBeach? beach+_password.join("").toString():isMessi?messi+_password.join("").toString():isWeeknd?weekend+_password.join("").toString():isDog?dog+_password.join("").toString():chess+_password.join("").toString(),
         );
   }
 
-  void signin() {
-    ref.read(authControllerProvider).signIn(context, deviceIdentifier,_password.join("").toString(), ref);
-  }
+  // void signin() {
+  //   ref.read(authControllerProvider).signIn(context, deviceIdentifier, _password.join("").toString(), ref);
+  // }
 
 
   Future<void> _authenticateWithBiometricsSignUp() async {
@@ -103,6 +111,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
         //AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
         setState(() {
           deviceIdentifier = iosInfo.identifierForVendor.toString();
+          deviceDetails = " Model: ${iosInfo.model.toString()} , System Version: ${iosInfo.systemVersion.toString()}";
           //deviceIdentifier = androidInfo.id.toString();
         });
       } else {

@@ -100,6 +100,18 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       child: Center(child:  Text('Device Id: ${user.user.deviceId}',style: const TextStyle(color: Colors.black),)),
                     ),
                   ),
+                  const SizedBox(height: 10,),
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                      color: Colors.tealAccent,
+                      borderRadius: BorderRadius.circular(30),
+                                          ),
+                    child:  Padding(
+                      padding:const  EdgeInsets.all(8.0),
+                      child: Center(child:  Text(user.user.deviceDetails,style: const TextStyle(color: Colors.black),)),
+                    ),
+                  ),
                   
                   
                 ],

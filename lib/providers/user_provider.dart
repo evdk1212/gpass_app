@@ -9,6 +9,7 @@ class UserProvider extends ChangeNotifier {
   User _user = User(
     name: '',
     deviceId: '',
+    deviceDetails: '',
     password: '',
     token: '',
   );
