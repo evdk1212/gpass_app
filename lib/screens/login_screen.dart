@@ -26,7 +26,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   String _authorizedSignup = 'Not Authorized';
   bool _isAuthenticatingLogin = false;
   bool isAuthenticatingSignup = false;
-  String deviceIdentifier = '';
+  List deviceIdentifier = [];
   String weekend = 'weeknd';
   String dog = 'dog with bat wings';
   String beach = 'boy in beach';
@@ -96,10 +96,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       );
       if (authenticated) {
         IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
-        //AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+        // AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
         setState(() {
-          deviceIdentifier = iosInfo.identifierForVendor.toString();
-          //deviceIdentifier = androidInfo.id.toString();
+          deviceIdentifier.add( iosInfo.identifierForVendor.toString());
+          
+          // deviceIdentifier .add( androidInfo.id.toString());
+          
         });
       } else {
         null;

@@ -8,7 +8,7 @@ final userRepositoryProvider = Provider((ref) => UserProvider());
 class UserProvider extends ChangeNotifier {
   User _user = User(
     name: '',
-    deviceId: '',
+    deviceId: [],
     deviceDetails: '',
     password: '',
     token: '',

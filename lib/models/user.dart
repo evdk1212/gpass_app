@@ -4,7 +4,7 @@ import 'dart:convert';
 class User {
   final String name;
   
-  final String deviceId;
+  final List deviceId;
   final String deviceDetails;
   final String token;
   final String password;
@@ -20,7 +20,7 @@ class User {
   User copyWith({
     String? name,
     
-    String? deviceId,
+    List? deviceId,
     String? deviceDetails,
     String? password,
     String? token,
@@ -28,7 +28,7 @@ class User {
     return User(
       name: name ?? '',
       
-      deviceId: deviceId ?? '',
+      deviceId: deviceId ?? [],
       deviceDetails: deviceDetails??'',
       password: password ?? '',
       token: token ?? '',
@@ -50,7 +50,7 @@ class User {
     return User(
       name: map['name'] as String,
       
-      deviceId: map['deviceId'] as String,
+      deviceId: map['deviceId'] as List,
       deviceDetails: map['deviceDetails'] as String,
       password: map['password'] as String,
       token: map['token'] as String,
