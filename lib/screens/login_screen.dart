@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:device_info_plus/device_info_plus.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -32,6 +33,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   String beach = 'boy in beach';
   String messi = 'messi';
   String chess = 'chess';
+
   bool isDog = false;
   bool isBeach = false;
   bool isMessi = false;
@@ -59,8 +61,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   bool isRookBlack1 = false;
   bool isKnightBlack1=false;
   bool isBishopBlack1 = false;
-  
-
   @override
   void initState() {
     super.initState();
@@ -95,12 +95,13 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         ),
       );
       if (authenticated) {
-        IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
-        // AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-        setState(() {
-          deviceIdentifier.add( iosInfo.identifierForVendor.toString());
+        // IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
+        AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+        setState(() async{
           
-          // deviceIdentifier .add( androidInfo.id.toString());
+          // deviceIdentifier.add( iosInfo.identifierForVendor.toString());
+          
+          deviceIdentifier .add( androidInfo.id.toString());
           
         });
       } else {

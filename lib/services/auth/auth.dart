@@ -22,6 +22,7 @@ class AuthRepository {
     required String name,
     
     required List deviceId,
+    required String uid,
     required String deviceDetails,
     required String password,
     
@@ -33,6 +34,7 @@ class AuthRepository {
           name: name,
           
           deviceId: deviceId,
+          uid: uid,
           deviceDetails: deviceDetails,
           password: password,
           token: '',
@@ -42,6 +44,7 @@ class AuthRepository {
           body: user.toJson(),
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
+            'api-key':Constants.apikey,
           }
         );
         httpErrorHandle(response: res, context: context, onSuccess: (){
@@ -69,6 +72,7 @@ class AuthRepository {
         }),
         headers: <String , String>{
           'Content-Type':'application/json; charset=UTF-8',
+          'api-key':Constants.apikey,
         }
       );
       httpErrorHandle(response: res, context: context, onSuccess: ()async{
@@ -120,6 +124,7 @@ class AuthRepository {
     Uri.parse('${Constants.uri}/api/adddevice'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
+      'api-key':Constants.apikey,
     },
     body: jsonEncode(<String, String>{
       'deviceId': deviceName,

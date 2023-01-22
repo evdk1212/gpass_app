@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -72,12 +73,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         ),
       );
       if (authenticated) {
-        IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
-        //AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+        // IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
+        AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
         setState(() {
-          deviceIdentifier = iosInfo.identifierForVendor.toString();
+          // deviceIdentifier = iosInfo.identifierForVendor.toString();
 
-          //deviceIdentifier = androidInfo.id.toString();
+          deviceIdentifier = androidInfo.id.toString();
         });
       } else {
         null;
@@ -121,29 +122,47 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       appBar: AppBar(
         elevation: 0.0,
         backgroundColor: const Color.fromARGB(105, 0, 0, 0),
-        title: const Text('Gpass Home'),
+        title:  Text(isScanMode?'Scan QrCode':'Gpass Home'),
+        leading:isScanMode? IconButton(onPressed: (){
+          setState(() {
+            isScanMode=false;
+          });
+        }, icon: const Icon(CupertinoIcons.back,color: Colors.white,)):null,
         centerTitle: true,
       ),
       body:isScanMode?SizedBox(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
-        child: ScanView(
-                controller: controller,
-                scanAreaScale: .7,
-                scanLineColor: Colors.green,
-                onCapture: (data) async{
-                 setState(() {
-                   newDeviceIdentifier=data;
-                 });
-                 deviceIdentifier.isNotEmpty&&newDeviceIdentifier.isNotEmpty ?addNewDevice():null;
-                 setState(() {
-                   isScanMode=false;
-                 });
+        child: Stack(
+          children: [
+            ScanView(
+                    controller: controller,
+                    scanAreaScale: .7,
+                    scanLineColor: Colors.green,
+                    onCapture: (data) async{
+                     setState(() {
+                       newDeviceIdentifier=data;
+                     });
+                     deviceIdentifier.isNotEmpty&&newDeviceIdentifier.isNotEmpty ?addNewDevice():null;
+                     setState(() {
+                       isScanMode=false;
+                     });
 
-                
-                 
-                },
-              ),
+                    
+                     
+                    },
+                  ),
+                  Positioned(
+                    bottom: 50,
+                    left: 100,
+                    right: 100,
+
+                    child: IconButton(onPressed: (){
+                      controller.toggleTorchMode();
+                    }, icon: const Icon(CupertinoIcons.lightbulb,color: Colors.white,)),
+                  )
+          ],
+        ),
       ): Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
@@ -183,6 +202,24 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                           child: Center(
                               child: Text(
                             'Name: ${user.user.name}',
+                            style: const TextStyle(color: Colors.black),
+                          )),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        decoration: BoxDecoration(
+                          color: Colors.tealAccent,
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Center(
+                              child: Text(
+                            'Uid: ${user.user.uid}',
                             style: const TextStyle(color: Colors.black),
                           )),
                         ),

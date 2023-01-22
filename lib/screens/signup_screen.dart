@@ -9,6 +9,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:lottie/lottie.dart';
 import 'package:gpass/services/auth/controller/auth_controller.dart';
+import 'package:uuid/uuid.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignUpScreen extends ConsumerStatefulWidget {
   const SignUpScreen({super.key});
@@ -21,7 +23,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
   final LocalAuthentication auth = LocalAuthentication();
   DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
   _SupportState supportState = _SupportState.unknown;
-
+  String uid='';
   String _authorized = 'Not Authorized';
   String _authorizedSignup = 'Not Authorized';
   bool _isAuthenticatingLogin = false;
@@ -63,6 +65,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
   bool isBishopBlack1 = false;
   TextEditingController nameController = TextEditingController();
   String name='';
+  
 
   @override
   void initState() {
@@ -80,6 +83,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
           name,
           
           deviceIdentifier,
+          uid,
           deviceDetails,
           isBeach? beach+_password.join("").toString():isMessi?messi+_password.join("").toString():isWeeknd?weekend+_password.join("").toString():isDog?dog+_password.join("").toString():chess+_password.join("").toString(),
         );
@@ -109,7 +113,10 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
       if (authenticated) {
         IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
         // AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-        setState(() {
+        setState(() async{
+          final prefs = await SharedPreferences.getInstance();
+          uid=const Uuid().v4();
+          prefs.setString('unique_id', uid);
           deviceIdentifier.add( iosInfo.identifierForVendor.toString());
           deviceDetails = " Model: ${iosInfo.model.toString()} , System Version: ${iosInfo.systemVersion.toString()}";
           // deviceDetails = " Model: ${androidInfo.model.toString()} , System Version: ${androidInfo.brand.toString()}";

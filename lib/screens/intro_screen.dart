@@ -44,12 +44,12 @@ Future<void> _getDeviceId() async {
         ),
       );
       if (authenticated) {
-        IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
-        // AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+        // IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
+        AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
         setState(() {
-          deviceIdentifier= iosInfo.identifierForVendor.toString();
+          // deviceIdentifier= iosInfo.identifierForVendor.toString();
          
-          // deviceIdentifier =androidInfo.id.toString();
+          deviceIdentifier =androidInfo.id.toString();
          
         });
       } else {

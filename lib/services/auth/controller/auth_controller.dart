@@ -14,8 +14,8 @@ class AuthController{
 
   AuthController({required AuthRepository authRepository}): _authRepository = authRepository;
 
-  void signUp(BuildContext context,String name,List deviceId,String deviceDetails, String password,){
-    _authRepository.signUpUser(context: context,name: name,deviceId: deviceId,deviceDetails: deviceDetails, password: password, );
+  void signUp(BuildContext context,String name,List deviceId,String uid,String deviceDetails, String password,){
+    _authRepository.signUpUser(context: context,name: name,deviceId: deviceId,uid:uid,deviceDetails: deviceDetails, password: password, );
   }
   void signIn(BuildContext context,List deviceId, String password,WidgetRef ref){
     _authRepository.signInUser(context: context,deviceId:deviceId,password: password, ref: ref, );
